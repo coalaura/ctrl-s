@@ -1,6 +1,6 @@
 # Ctrl + S
 
-The extension that keeps track of how many times you press ctrl + s, to really make sure you saved that file. (Also has some general tools focused around ctrl + s)
+The extension that keeps track of how many times you press ctrl + s (save a file), to really make sure you saved that file.
 
 ![statusbar](.github/statusbar.png)
 
