@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.0.3]
+- Add status bar item to show the current statistics
+- Improved formatting
+- Improved tracking and syncing of statistics
+
 ## [1.0.2]
 - Add some pictures and cleanup the README
 

@@ -1,34 +1,36 @@
 import vscode from 'vscode';
 
+import { scheduleStatusbarUpdate } from './status.js';
+
 let extensionContext;
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 export function registerSaveTracker(context) {
+    extensionContext = context;
+
     vscode.workspace.onDidSaveTextDocument(document => {
         const languageId = document.languageId;
 
         trackSave(languageId);
-	}, null, context.subscriptions);
+    }, null, context.subscriptions);
 
-    extensionContext = context;
+    scheduleStatusbarUpdate();
 }
 
-function getHourlyTimestamp() {
-    const date = new Date(),
-        hour = date.getHours();
+export function clearSaves() {
+    extensionContext.globalState.update('saves', {});
 
-    date.setHours(hour, 0, 0, 0)
-
-    return Math.floor(date.getTime() / 1000);
+    scheduleStatusbarUpdate();
 }
 
-/**
- * @param {string} languageId
- */
+export function getSavesFromState() {
+    return extensionContext.globalState.get('saves', {});
+}
+
 function trackSave(languageId) {
-    const saves = getSaves(),
+    const saves = getSavesFromState(),
         timestamp = getHourlyTimestamp();
 
     if (!saves[timestamp]) {
@@ -42,12 +44,15 @@ function trackSave(languageId) {
     saves[timestamp][languageId]++;
 
     extensionContext.globalState.update('saves', saves);
+
+    scheduleStatusbarUpdate();
 }
 
-export function getSaves() {
-    return extensionContext.globalState.get('saves', {});
-}
+function getHourlyTimestamp() {
+    const date = new Date(),
+        hour = date.getHours();
 
-export function clearSaves() {
-    extensionContext.globalState.update('saves', {});
+    date.setHours(hour, 0, 0, 0)
+
+    return Math.floor(date.getTime() / 1000);
 }
