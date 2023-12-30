@@ -1,5 +1,8 @@
 # Change Log
 
+## [1.0.4]
+- Add some more pictures to the README
+
 ## [1.0.3]
 - Add status bar item to show the current statistics
 - Improved formatting

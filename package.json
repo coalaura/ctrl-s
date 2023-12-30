@@ -2,7 +2,7 @@
 	"name": "ctrl-s",
 	"displayName": "CTRL + S",
 	"description": "The extension that keeps track of how many times you press ctrl + s, to really make sure you saved that file.",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"author": "coalaura",
 	"publisher": "coalaura",
 	"icon": "logo.png",
