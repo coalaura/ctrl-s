@@ -1,0 +1,68 @@
+{
+	"name": "ctrl-s",
+	"displayName": "CTRL + S",
+	"description": "The extension that keeps track of how many times you press ctrl + s, to really make sure you saved that file.",
+	"version": "1.0.0",
+	"author": "coalaura",
+	"publisher": "coalaura",
+	"icon": "logo.png",
+	"galleryBanner": {
+		"color": "#F0F0F0",
+		"theme": "light"
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"keywords": [
+		"saving",
+		"ctrl"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/coalaura/ctrl-s"
+	},
+	"engines": {
+		"vscode": "^1.77.0"
+	},
+	"categories": [
+		"Snippets"
+	],
+	"activationEvents": [
+		"onLanguage"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "CTRL + S",
+			"properties": {
+				"ctrl-s.luaGLM": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Support and diagnose [Lua-GLM](https://github.com/citizenfx/lua/blob/luaglm-dev/cfx/README.md) syntax like `+=`."
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "ctrl-s.showStatistics",
+				"title": "Show CTRL + S Statistics"
+			}
+		]
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"package": "npm run build && vsce package",
+		"build": "node esbuild.config.js",
+		"watch": "node esbuild.config.js --watch"
+	},
+	"devDependencies": {
+		"@types/glob": "^8.1.0",
+		"@types/mocha": "^10.0.1",
+		"@types/node": "16.x",
+		"@types/vscode": "^1.77.0",
+		"esbuild": "^0.19.5",
+		"esbuild-copy-static-files": "^0.1.0",
+		"eslint": "^8.36.0",
+		"glob": "^8.1.0",
+		"mocha": "^10.2.0",
+		"typescript": "^4.9.5"
+	}
+}

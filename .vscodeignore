@@ -1,0 +1,9 @@
+.github
+.vscode
+node_modules
+src
+esbuild.config.js
+jsconfig.json
+.gitignore
+*.vsix
+*.map
