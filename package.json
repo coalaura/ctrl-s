@@ -2,7 +2,7 @@
 	"name": "ctrl-s",
 	"displayName": "CTRL + S",
 	"description": "The extension that keeps track of how many times you press ctrl + s, to really make sure you saved that file.",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"author": "coalaura",
 	"publisher": "coalaura",
 	"icon": "logo.png",
@@ -30,20 +30,14 @@
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
-		"configuration": {
-			"title": "CTRL + S",
-			"properties": {
-				"ctrl-s.luaGLM": {
-					"type": "boolean",
-					"default": true,
-					"markdownDescription": "Support and diagnose [Lua-GLM](https://github.com/citizenfx/lua/blob/luaglm-dev/cfx/README.md) syntax like `+=`."
-				}
-			}
-		},
 		"commands": [
 			{
 				"command": "ctrl-s.showStatistics",
 				"title": "Show CTRL + S Statistics"
+			},
+			{
+				"command": "ctrl-s.resetStatistics",
+				"title": "Reset CTRL + S Statistics"
 			}
 		]
 	},

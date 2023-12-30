@@ -47,3 +47,7 @@ function trackSave(languageId) {
 export function getSaves() {
     return extensionContext.globalState.get('saves', {});
 }
+
+export function clearSaves() {
+    extensionContext.globalState.update('saves', {});
+}

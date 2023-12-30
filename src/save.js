@@ -1,6 +1,6 @@
 import vscode from 'vscode';
 
-import { getSaves } from './save-tracker.js';
+import { getSaves, clearSaves } from './save-tracker.js';
 import { formatDate } from './time.js';
 
 /**
@@ -15,6 +15,14 @@ export function registerSaveCommands(context) {
             content: statistics
         }).then(document => {
             vscode.window.showTextDocument(document);
+        });
+	}, null, context.subscriptions);
+
+    vscode.commands.registerCommand('ctrl-s.resetStatistics', () => {
+        vscode.window.showInformationMessage('Are you sure you want to reset your statistics?', 'Yes', 'No').then(answer => {
+            if (answer === 'Yes') {
+                clearSaves();
+            }
         });
 	}, null, context.subscriptions);
 }
