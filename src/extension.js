@@ -1,5 +1,5 @@
 import { registerSaveTracker } from "./save-tracker.js";
-import { registerSaveCommands } from "./save.js";
+import { registerSaveCommands } from "./save-viewer.js";
 import { registerStatusbarItem } from "./status.js";
 
 let activated = false;
