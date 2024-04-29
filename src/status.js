@@ -1,5 +1,6 @@
 import vscode from 'vscode';
 
+import { fullNumber } from './config.js';
 import { getSavesFromState } from './save-tracker.js';
 import { formatNumber } from './format.js';
 
@@ -14,10 +15,10 @@ export function registerStatusbarItem(context) {
     context.subscriptions.push(statusBarItem);
 }
 
-export function scheduleStatusbarUpdate() {
+export function scheduleStatusbarUpdate(priority = false) {
     clearTimeout(timeout);
 
-    if (Date.now() - lastUpdate >= 1000) {
+    if (priority || Date.now() - lastUpdate >= 1000) {
         updateStatusbarItemCount();
     } else {
         timeout = setTimeout(updateStatusbarItemCount, 1000);
@@ -32,7 +33,7 @@ function updateStatusbarItemCount() {
     if (count === 0) {
         statusBarItem.text = '$(save) No saves';
     } else {
-        statusBarItem.text = `$(save) ${formatNumber(count, true)} save${count === 1 ? '' : 's'}`;
+        statusBarItem.text = `$(save) ${formatNumber(count, !fullNumber())} save${count === 1 ? '' : 's'}`;
     }
 
     statusBarItem.show();

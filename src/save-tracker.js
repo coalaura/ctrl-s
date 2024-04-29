@@ -13,7 +13,19 @@ export function registerSaveTracker(context) {
     vscode.workspace.onDidSaveTextDocument(document => {
         const languageId = document.languageId;
 
+        if (document.fileName.endsWith('settings.json')) {
+            return;
+        }
+
         trackSave(languageId);
+    }, null, context.subscriptions);
+
+    vscode.workspace.onDidChangeConfiguration(event => {
+        const affected = event.affectsConfiguration('ctrl-s.fullNumber');
+
+        if (affected) {
+            scheduleStatusbarUpdate(true);
+        }
     }, null, context.subscriptions);
 
     scheduleStatusbarUpdate();

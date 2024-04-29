@@ -41,21 +41,25 @@ export function formatNTimes(times) {
     return `${formatNumber(times)} times`;
 }
 
+function roundFixed(number, decimals = 1) {
+    return (Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals)).toFixed(decimals).replace(/\.?0+$/, '');
+}
+
 export function formatNumber(number, short = false) {
     if (short) {
         // Should be enough for most cases, lmao
-        if (number >= 10e17) {
-            return `${(Math.round(number / 10e16) / 10).toFixed(1)} quintillion`;
-        } else if (number >= 10e14) {
-            return `${Math.round(number / 10e13) / 10} quadrillion`;
-        } else if (number >= 10e11) {
-            return `${Math.round(number / 10e10) / 10} trillion`;
-        } else if (number >= 10e9) {
-            return `${Math.round(number / 10e8) / 10} billion`;
-        } else if (number >= 10e6) {
-            return `${Math.round(number / 10e5) / 10} million`;
-        } else if (number >= 10e3) {
-            return `${Math.round(number / 10e2) / 10} thousand`;
+        if (number >= 1e17) {
+            return `${roundFixed(number / 1e17, 1)} quintillion`;
+        } else if (number >= 1e14) {
+            return `${roundFixed(number / 1e14, 1)} quadrillion`;
+        } else if (number >= 1e11) {
+            return `${roundFixed(number / 1e11, 1)} trillion`;
+        } else if (number >= 1e9) {
+            return `${roundFixed(number / 1e9, 1)} billion`;
+        } else if (number >= 1e6) {
+            return `${roundFixed(number / 1e6, 1)} million`;
+        } else if (number >= 1e3) {
+            return `${roundFixed(number / 1e3, 1)} thousand`;
         }
 
         // Otherwise, default formatting

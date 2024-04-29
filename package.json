@@ -36,6 +36,16 @@
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"configuration": {
+			"title": "CTRL-S",
+			"properties": {
+				"ctrl-s.fullNumber": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Always show the full number instead of its short form (1,234,567 instead of 1.2 million)."
+				}
+			}
+		},
 		"commands": [
 			{
 				"command": "ctrl-s.showStatistics",
