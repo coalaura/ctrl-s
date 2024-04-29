@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.0.5]
+- Add new config option `fullNumber`
+- Fixed incorrect formatting causing the number of saves to be incorrect
+
 ## [1.0.4]
 - Add some more pictures to the README
 
