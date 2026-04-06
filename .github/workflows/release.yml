@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Install vsce
+        run: bun add -g @vscode/vsce
+
+      - name: Build extension
+        run: bun run build
+
+      - name: Package extension
+        run: vsce package
+
+      - name: Rename VSIX
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          mv *.vsix ctrl-s-v${VERSION}.vsix
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ctrl-s-v*.vsix
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
