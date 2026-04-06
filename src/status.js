@@ -1,50 +1,42 @@
-import vscode from 'vscode';
+import vscode from "vscode";
 
-import { fullNumber } from './config.js';
-import { getSavesFromState } from './save-tracker.js';
-import { formatNumber } from './format.js';
+import { fullNumber } from "./config.js";
+import { formatNumber } from "./format.js";
+import { getTotalSaves } from "./save-tracker.js";
 
-let statusBarItem, timeout, lastUpdate = 0;
+let statusBarItem,
+	timeout,
+	lastUpdate = 0;
 
 export function registerStatusbarItem(context) {
-    statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 200);
+	statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 200);
 
-    statusBarItem.command = 'ctrl-s.showStatistics';
-    statusBarItem.tooltip = 'Show CTRL+S statistics';
+	statusBarItem.command = "ctrl-s.showStatistics";
+	statusBarItem.tooltip = "Show CTRL+S statistics";
 
-    context.subscriptions.push(statusBarItem);
+	context.subscriptions.push(statusBarItem);
 }
 
 export function scheduleStatusbarUpdate(priority = false) {
-    clearTimeout(timeout);
+	clearTimeout(timeout);
 
-    if (priority || Date.now() - lastUpdate >= 1000) {
-        updateStatusbarItemCount();
-    } else {
-        timeout = setTimeout(updateStatusbarItemCount, 1000);
-    }
+	if (priority || Date.now() - lastUpdate >= 1000) {
+		updateStatusbarItemCount();
+	} else {
+		timeout = setTimeout(updateStatusbarItemCount, 1000);
+	}
 }
 
 function updateStatusbarItemCount() {
-    lastUpdate = Date.now();
+	lastUpdate = Date.now();
 
-    const count = calculateTotalSaves();
+	const count = getTotalSaves();
 
-    if (count === 0) {
-        statusBarItem.text = '$(save) No saves';
-    } else {
-        statusBarItem.text = `$(save) ${formatNumber(count, !fullNumber())} save${count === 1 ? '' : 's'}`;
-    }
+	if (count === 0) {
+		statusBarItem.text = "$(save) No saves";
+	} else {
+		statusBarItem.text = `$(save) ${formatNumber(count, !fullNumber())} save${count === 1 ? "" : "s"}`;
+	}
 
-    statusBarItem.show();
-}
-
-function calculateTotalSaves() {
-    const saves = getSavesFromState();
-
-    return Object.values(saves).reduce((total, saves) => {
-        return total + Object.values(saves).reduce((total, saves) => {
-            return total + saves;
-        }, 0);
-    }, 0);
+	statusBarItem.show();
 }

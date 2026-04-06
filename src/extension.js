@@ -1,4 +1,4 @@
-import { registerSaveTracker } from "./save-tracker.js";
+import { flushSaves, registerSaveTracker } from "./save-tracker.js";
 import { registerSaveCommands } from "./save-viewer.js";
 import { registerStatusbarItem } from "./status.js";
 
@@ -8,7 +8,9 @@ let activated = false;
  * @param {vscode.ExtensionContext} context
  */
 export function activate(context) {
-	if (activated) return;
+	if (activated) {
+		return;
+	}
 
 	activated = true;
 
@@ -18,4 +20,6 @@ export function activate(context) {
 	registerSaveCommands(context);
 }
 
-export function deactivate() { }
+export function deactivate() {
+	flushSaves();
+}

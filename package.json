@@ -32,7 +32,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onLanguage"
+		"onStartupFinished"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
