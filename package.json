@@ -59,20 +59,16 @@
 	},
 	"scripts": {
 		"lint": "eslint .",
-		"package": "npm run build && vsce package",
-		"build": "node esbuild.config.js",
-		"watch": "node esbuild.config.js --watch"
+		"package": "bun run build && vsce package",
+		"build": "bun esbuild.config.js",
+		"watch": "bun esbuild.config.js --watch"
 	},
 	"devDependencies": {
-		"@types/glob": "^8.1.0",
-		"@types/mocha": "^10.0.1",
 		"@types/node": "16.x",
 		"@types/vscode": "^1.77.0",
 		"esbuild": "^0.19.5",
 		"esbuild-copy-static-files": "^0.1.0",
 		"eslint": "^8.36.0",
-		"glob": "^8.1.0",
-		"mocha": "^10.2.0",
 		"typescript": "^4.9.5"
 	}
 }
